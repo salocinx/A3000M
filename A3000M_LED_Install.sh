@@ -5,8 +5,8 @@ echo "*******************************************"
 echo " "
 if [ "$(whoami)" != "root" ]; then
 	echo "Sorry, you can't run this script with normal user privileges."
-    echo "Call the script with super user privileges like this:"
-    echo "$ sudo ./A3000M_LED_Install.sh"
+        echo "Call the script with super user privileges like this:"
+        echo "sudo ./A3000M_LED_Install.sh"
 	exit 1
 fi
 echo " -> Going to install the WiringPi library ..."
