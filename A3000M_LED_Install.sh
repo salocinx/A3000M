@@ -9,26 +9,38 @@ if [ "$(whoami)" != "root" ]; then
         echo "sudo ./A3000M_LED_Install.sh"
 	exit 1
 fi
-echo " -> Going to install the WiringPi library ..."
 echo " "
+echo " -> Which Raspberry Pi model are you using (1, 2, 3 or 4) ?"
+read model
 apt-get purge wiringpi
 apt-get install git-core
 apt-get update
 apt-get upgrade
-mkdir /usr/lib/WiringPi
-git clone https://github.com/WiringPi/WiringPi.git /usr/lib/WiringPi
-cd /usr/lib/WiringPi/
-./build
+if [ "$model" = "4" ]
+    then
+    	echo " -> Going to install the WiringPi library ..."
+	echo " "
+        cd /tmp
+	wget https://project-downloads.drogon.net/wiringpi-latest.deb
+	dpkg -i wiringpi-latest.deb
+    else
+        echo " -> Going to install the WiringPi library ..."
+	echo " "
+	mkdir /tmp/WiringPi
+	git clone https://github.com/WiringPi/WiringPi.git /tmp/WiringPi
+	cd /tmp/WiringPi/
+	./build
+fi
 echo " "
 echo " -> Going to install the PiLEDlights library ..."
 echo " "
-mkdir /usr/lib/PiLEDlights
-git clone https://github.com/RagnarJensen/PiLEDlights.git /usr/lib/PiLEDlights
-gcc -Wall -O3 -o /usr/lib/PiLEDlights/hddledPi /usr/lib/PiLEDlights/hddledPi.c -lwiringPi
-gcc -Wall -O3 -o /usr/lib/PiLEDlights/netledPi /usr/lib/PiLEDlights/netledPi.c -lwiringPi
-mv /usr/lib/PiLEDlights/hddledPi /usr/local/bin
-mv /usr/lib/PiLEDlights/netledPi /usr/local/bin
-cp /usr/lib/PiLEDlights/initscripts/systemd/*.service /etc/systemd/system
+mkdir /tmp/PiLEDlights
+git clone https://github.com/RagnarJensen/PiLEDlights.git /tmp/PiLEDlights
+gcc -Wall -O3 -o /tmp/PiLEDlights/hddledPi /tmp/PiLEDlights/hddledPi.c -lwiringPi
+gcc -Wall -O3 -o /tmp/PiLEDlights/netledPi /tmp/PiLEDlights/netledPi.c -lwiringPi
+mv /tmp/PiLEDlights/hddledPi /usr/local/bin
+mv /tmp/PiLEDlights/netledPi /usr/local/bin
+cp /tmp/PiLEDlights/initscripts/systemd/*.service /etc/systemd/system
 systemctl daemon-reload
 systemctl enable hddledPi.service
 systemctl enable netledPi.service
