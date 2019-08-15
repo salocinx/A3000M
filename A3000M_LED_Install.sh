@@ -9,7 +9,6 @@ if [ "$(whoami)" != "root" ]; then
         echo "sudo ./A3000M_LED_Install.sh"
 	exit 1
 fi
-echo " "
 echo " -> Which Raspberry Pi model are you using (1, 2, 3 or 4) ?"
 read model
 apt-get purge wiringpi
