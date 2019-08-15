@@ -15,20 +15,24 @@ apt-get purge wiringpi
 apt-get install git-core
 apt-get update
 apt-get upgrade
-if [ "$model" = "4" ]
+if [ "$model" = "1" ] || [ "$model" = "2" ] || [ "$model" = "3" ]
     then
-    	echo " -> Going to install the WiringPi library ..."
-	echo " "
-        cd /tmp
-	wget https://project-downloads.drogon.net/wiringpi-latest.deb
-	dpkg -i wiringpi-latest.deb
-    else
-        echo " -> Going to install the WiringPi library ..."
+	echo " -> Going to install the WiringPi library ..."
 	echo " "
 	mkdir /tmp/WiringPi
 	git clone https://github.com/WiringPi/WiringPi.git /tmp/WiringPi
 	cd /tmp/WiringPi/
 	./build
+elif [ "$model" = "4" ]
+    then
+	echo " -> Going to install the WiringPi library ..."
+	echo " "
+	cd /tmp
+	wget https://project-downloads.drogon.net/wiringpi-latest.deb
+	dpkg -i wiringpi-latest.deb
+else
+	echo "Script aborted. You need to provide a valid Raspberry Pi model (major version) -> 1, 2, 3 or 4."
+	exit 1
 fi
 echo " "
 echo " -> Going to install the PiLEDlights library ..."
