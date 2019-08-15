@@ -11,7 +11,8 @@ apt-get update
 apt-get upgrade
 mkdir /usr/lib/WiringPi
 git clone https://github.com/WiringPi/WiringPi.git /usr/lib/WiringPi
-/usr/lib/WiringPi/build
+cd /usr/lib/WiringPi/
+./build
 echo " "
 echo " -> Going to install the PiLEDlights library ..."
 echo " "
