@@ -50,7 +50,7 @@ systemctl enable netledPi.service
 echo " "
 echo " -> You need to reboot your Raspberry Pi. Reboot now (Y=yes, n=no) ?"
 read answer
-if [ "$answer" = "Y" ]
+if [ "$answer" = "y" ] || [ "$answer" = "Y" ] || [ "$answer" = "j" ] || [ "$answer" = "J" ]
     then
         reboot now
 fi
